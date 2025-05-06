@@ -8,8 +8,8 @@ const Home = () => {
     const [todo,setTodo] = useState([]);
 
     const token = localStorage.getItem('token')
-    const userId = localStorage.getItem('userId')
-    console.log(userId)
+    //const userId = localStorage.getItem('userId')
+    //console.log(userId)
     const user = JSON.parse(localStorage.getItem('user')); 
     const fetch = async() =>{
         try {
@@ -27,7 +27,7 @@ const Home = () => {
 
     useEffect(() => {
          fetch();
-     }, [userId])
+     }, [user.id])
 
     const handleEdit = async(id) => {
         try {
