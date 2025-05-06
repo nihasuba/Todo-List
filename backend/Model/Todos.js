@@ -1,10 +1,15 @@
 const mongoose = require('mongoose')
 const TodoSchema = new mongoose.Schema({
+    userId:{
+        ref:'User',
+        type : mongoose.Schema.Types.ObjectId,
+        required:true
+    },
     task:String,
     done: {
         type:Boolean,
         default:false
-    }
+    } 
 })
 
 const TodoModel = mongoose.model('todos',TodoSchema)

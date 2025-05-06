@@ -1,16 +1,19 @@
 import React, { useEffect, useState } from 'react'
 import Todoform from './Todoform'
 import axios from 'axios';
+import './App.css'
 import { BsCircleFill, BsFillCheckCircleFill, BsFillTrashFill } from "react-icons/bs";
 
 const Home = () => {
     const [todo,setTodo] = useState([]);
 
-
-
+    const token = localStorage.getItem('token')
+    const userId = localStorage.getItem('userId')
+    console.log(userId)
+    const user = JSON.parse(localStorage.getItem('user')); 
     const fetch = async() =>{
         try {
-            const response = await axios.get("http://localhost:5000/list")
+            const response = await axios.get(`http://localhost:5000/list/${user.id}`);
             console.log(response);
             console.log(response.data);
             if(response.status==201){
@@ -24,7 +27,7 @@ const Home = () => {
 
     useEffect(() => {
          fetch();
-     }, [])
+     }, [userId])
 
     const handleEdit = async(id) => {
         try {
