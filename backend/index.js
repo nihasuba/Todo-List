@@ -121,6 +121,53 @@ app.delete('/delete/:id',async(req, res) =>{
     
 })
 
+app.post('/sendotp', async(req,res) =>{
+    try {
+        console.log("Received Email :",req.body)
+        const {email} = req.body
+        const user = await UserModel.findOne({email});
+        if (!user)
+            return res.status(404).json({message:"Email not Registered"});
+        const otp = Math.floor(100000 + Math.random() * 900000);
+        otpStore[email] = otp;
+
+        await sendOTPEmail(email, otp);
+        res.json({ message: "OTP sent to your email" });
+
+    } catch (error) {
+        res.status(500).json({ message: "Failed to send OTP", error: err.message });
+    }
+})
+
+app.post('/verifyotp', async (req, res) => {
+    const { email, otp } = req.body;
+    if (otpStore[email] && otpStore[email] == otp) {
+      delete otpStore[email]; // optional: remove OTP after verification
+      return res.json({ success: true, message: "OTP verified" });
+    }
+    return res.status(400).json({ success: false, message: "Invalid OTP" });
+  });
+  
+
+  app.post("/resetpassword", async (req, res) => {
+    const { email, password } = req.body;
+  
+    try {
+      const user = await UserModel.findOne({ email });
+      if (!user) return res.status(404).json({ message: "User not found" });
+  
+      // Hash password before saving
+      const hashedPassword = await bcrypt.hash(password, 10);
+      user.password = hashedPassword;
+      await user.save();
+  
+      return res.json({ success: true, message: "Password updated" });
+    } catch (error) {
+      return res.status(500).json({ message: "Server error" });
+    }
+  });
+
+  
 app.listen(5000, () => {
     console.log("server is Running")
 })

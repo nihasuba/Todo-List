@@ -14,7 +14,7 @@ const Todoform = () => {
     const handleAdd = async(e) => {
       e.preventDefault()
       const newTodo = {
-        userId: user.id, // Make sure user._id is correct and not wrapped in extra quotes
+        userId: user.id, 
         task: task,
       };
       console.log("Sending data:", newTodo);
@@ -30,10 +30,33 @@ const Todoform = () => {
       }
     }
 
+    const handleLogout = () =>{
+      localStorage.removeItem('user')
+      window.location.href = '/login'
+    }
+    
   return (
-    <div className='create_form'>
-        <input type ="text"onChange={(e) =>setTask(e.target.value)} placeholder="Enter your task"/>
-        <button type='button' onClick={handleAdd}>Add</button>
+    <div className="container">
+      {/* Header */}
+      <div className="d-flex justify-content-end align-items-end mb-4 pb-2">
+        <button className="btn btn-danger" onClick={handleLogout}>Logout</button>
+      </div>
+      <div className='d-flex mb-4 justify-content-center align-items-center '>
+        <h2 className=''>Todo List</h2>
+      </div>
+
+      {/* Task Form */}
+      <div className="create_form d-flex justify-content-center">
+        <input
+          type="text"
+          className="form-control me-2"
+          onChange={(e) => setTask(e.target.value)}
+          placeholder="Enter your task"
+        />
+        <button className="btn btn-primary" type="button" onClick={handleAdd}>
+          Add
+        </button>
+      </div>
     </div>
   )
 }

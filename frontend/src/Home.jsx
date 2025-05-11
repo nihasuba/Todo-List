@@ -58,7 +58,7 @@ const Home = () => {
 
   return (
     <div className='home'>
-        <h2>Todo List</h2>
+        
         <Todoform />
         {
             todo.length === 0 ?

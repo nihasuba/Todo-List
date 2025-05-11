@@ -39,12 +39,18 @@ const Login = () => {
     <div className="d-flex vh-100 align-items-center justify-content-center bg-light">
       <div className="card shadow-lg p-4" style={{ width: "350px" }}>
         <h2 className="text-center text-primary fw-bold mb-4">Login</h2>
+        {error && <div className="alert alert-danger">{error}</div>}
         <form onSubmit={handleLogin}>
           <div className="mb-3">
             <input type="email" className="form-control" name='email' placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} required />
           </div>
           <div className="mb-3">
             <input type="password" className="form-control" name="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+          </div>
+          <div className="mb-3 text-end">
+            <a href="/otp" className="text-decoration-none text-primary small">
+              Forgot Password?
+            </a>
           </div>
           <button type="submit" className="btn btn-primary w-100">Login</button>
         </form>

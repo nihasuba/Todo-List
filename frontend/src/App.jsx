@@ -2,10 +2,12 @@ import { useState } from 'react'
 import './App.css'
 import './index.css'
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Index from './Indexx'
 import Login from './Login'
 import Register from './Register';
 import Home from './Home';
+import Indexx from './Indexx';
+import Nav from './Nav';
+import OTP from './OTP';
 
 
 function App() {
@@ -16,11 +18,13 @@ function App() {
      
         
         <BrowserRouter>
+        {/* <Nav /> */}
         <Routes>
-          <Route path='/' element={<Index />} />
+          <Route path='/' element={<Indexx />} />
           <Route path='login' element={<Login />} />
           <Route path='register' element={<Register />} />
           <Route path='home/:userId' element={<Home />} />
+          <Route path='otp' element={<OTP />} />
         </Routes>
         </BrowserRouter>
       
